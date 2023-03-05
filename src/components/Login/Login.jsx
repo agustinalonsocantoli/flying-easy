@@ -1,8 +1,9 @@
 // React
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-// Custom Hook
-import { useAuthContex } from "../../App";
+// Redux
+import { useDispatch } from "react-redux";
+import { setLogin } from "../../feature/LoginSlice";
 // Icons
 import { MdOutlineMailLock } from "react-icons/md";
 import { MdPassword } from "react-icons/md";
@@ -13,28 +14,36 @@ import imgLogin from '../../assets/imgLogin.png'
 import logo from '../../assets/Logo.png'
 // Styled
 import { LoginBox, ImgBox, Logo, Form, ContentBox, ButtonBox, IconBox, Icon } from './LoginStyled'
+// Components
+import { Register } from "../Register/Register";
 
-export const Login = () => {
+
+export const Login = ({ setEmailInput, setPasswordInput, passwordInput, user }) => {
     const navigate = useNavigate();
-    const { email, password, dispatch } = useAuthContex();
-    const [ emailInput, setEmailInput ] = useState('test@test.com');
-    const [ passwordInput, setPasswordInput ] = useState('admin');
+    const dispatch = useDispatch();
+    const [ register, setRegister ] = useState(false)
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        
+        if(user !== undefined && user !== null) {
+            if(user.password === passwordInput) {
+                dispatch(setLogin({
+                    ...user,
+                    auth: true
+                }));
+    
+                navigate('/')
+                localStorage.setItem('login', JSON.stringify(user.email));
 
-        if( emailInput === email && passwordInput === password) {
-            dispatch({
-                type: 'LOG_IN',
-                payload: true,
-            });
+            } else {
+                alert('Password is not correct')
+            }
 
-            navigate('/')
-            localStorage.setItem('login', JSON.stringify(email));
         } else {
-            alert('Email or Password is not correct')
-            e.target.reset()
-        }
+            alert('Email is not register')
+            e.target.reset();
+        }   
     }
 
     return(
@@ -58,24 +67,26 @@ export const Login = () => {
                 </Logo>
 
                 <Form onSubmit={handleSubmit}>
-                    <label htmlFor="email">Email</label>
+                    <label htmlFor="emailLogin">Email</label>
                     <IconBox>
                         <Icon><MdOutlineMailLock /></Icon>
-                        <input type="email" name="email" defaultValue={email} onChange={({ target }) => setEmailInput(target.value)}/>
+                        <input type="email" name="emailLogin" onChange={({ target }) => setEmailInput(target.value)}/>
                     </IconBox>
                     
-                    <label htmlFor="password">Password</label>
+                    <label htmlFor="passwordLogin">Password</label>
                     <IconBox>
                         <Icon><MdPassword /></Icon>
-                        <input type="password" name='password' defaultValue={password} onChange={({ target }) => setPasswordInput(target.value)}/>
+                        <input type="password" name='passwordLogin' onChange={({ target }) => setPasswordInput(target.value)}/>
                     </IconBox>
 
                     <ButtonBox>
-                        <button onClick={() => navigate('/register')}><FiUserPlus />Sign in</button>
                         <button type='submit'><SlLogin />Log in</button>
+                        <button onClick={(e) => { e.preventDefault(); setRegister(true);}}><FiUserPlus />Sign in</button>
                     </ButtonBox>
                 </Form>
             </ContentBox>
+
+            {register && <Register setRegister={setRegister} />}
         </LoginBox>
     );
 }

@@ -1,10 +1,18 @@
 // React
 import { Navigate, Outlet } from "react-router-dom";
-// CustomHook
-import { useAuthContex } from "../../App";
+// Redux
+import { useEffect, useState } from "react";
 
-export const RequireAuth = () => {
-    const { auth } = useAuthContex();
+export const RequireAuth = ({user}) => {
+
+    const [ auth, setAuth ] = useState(false)
+
+    useEffect(() => {
+        if(user !== undefined && user !== null) {
+            setAuth(user.auth)
+        }
+
+    }, [user])
 
     return(
         !auth && !localStorage.getItem('login') ?

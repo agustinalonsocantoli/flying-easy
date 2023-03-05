@@ -2,11 +2,11 @@ import styled from "styled-components";
 
 export const LoginBox = styled.div`
     display: flex;
+    height: 100vh;
+    position: relative;
 `;
 
 export const ImgBox = styled.div`
-    width: 50vw;
-    height: 100vh;
 
     img {
         object-fit: cover;
@@ -77,8 +77,6 @@ export const Form = styled.form`
 `;
 
 export const ContentBox = styled.div`
-    height: 100vh;
-    width: 50vw;
     display: flex;
     flex-direction: column;
     align-items: center;
