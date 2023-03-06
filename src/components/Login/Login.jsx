@@ -16,6 +16,8 @@ import logo from '../../assets/Logo.png'
 import { LoginBox, ImgBox, Logo, Form, ContentBox, ButtonBox, IconBox, Icon } from './LoginStyled'
 // Components
 import { Register } from "../Register/Register";
+// Libraries
+import toast from 'react-hot-toast';
 
 
 export const Login = ({ setEmailInput, setPasswordInput, passwordInput, user }) => {
@@ -32,16 +34,17 @@ export const Login = ({ setEmailInput, setPasswordInput, passwordInput, user }) 
                     ...user,
                     auth: true
                 }));
-    
+                
+                toast.success(`Login successful`);
                 navigate('/')
                 localStorage.setItem('login', JSON.stringify(user.email));
 
             } else {
-                alert('Password is not correct')
+                toast.error(`Password is not correct`);
             }
 
         } else {
-            alert('Email is not register')
+            toast.error(`Email is not register`);
             e.target.reset();
         }   
     }

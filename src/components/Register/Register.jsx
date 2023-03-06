@@ -3,6 +3,8 @@ import { useDispatch } from 'react-redux';
 import { setNewUser } from '../../feature/LoginSlice';
 // Styled
 import { RegisterBox, Form, ButtonBox } from './RegisterStyled';
+// Libraries
+import toast from 'react-hot-toast';
 
 export const Register = ({ setRegister }) => {
     const dispatch = useDispatch();
@@ -24,13 +26,14 @@ export const Register = ({ setRegister }) => {
                         auth: false,
                     }
                 ))
-
+                
+                toast.success(`New user ${email} created`);
                 setRegister(false);
             } else {
-                alert('Password must be the same')
+                toast.error(`Password must be the same`);
             }
         } else {
-            alert('Emails must be the same')
+            toast.error(`Emails must be the same`);
         }
     };
 

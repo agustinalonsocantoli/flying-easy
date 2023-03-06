@@ -3,13 +3,14 @@ import { Navigate, Outlet } from "react-router-dom";
 // Redux
 import { useEffect, useState } from "react";
 
-export const RequireAuth = ({user}) => {
+export const RequireAuth = ({ user, setView }) => {
 
     const [ auth, setAuth ] = useState(false)
 
     useEffect(() => {
         if(user !== undefined && user !== null) {
-            setAuth(user.auth)
+            setAuth(user.auth);
+            setView(true);
         }
 
     }, [user])

@@ -1,7 +1,9 @@
+import { HomeBox } from './HomeStyled';
+
 export const Home = () => {
     return(
-        <div>
-            HOME
-        </div>
+        <HomeBox>
+            <h1>HOME</h1>
+        </HomeBox>
     )
 }
