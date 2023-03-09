@@ -28,10 +28,6 @@ export const Navbar = ({ user, setView }) => {
 
     return(
         <NavbarBox>
-            <ul>
-                <NavLink>Home</NavLink>
-            </ul>
-
             <div>
                 <button onClick={handleClick}><SlLogout />Logout</button>
             </div>

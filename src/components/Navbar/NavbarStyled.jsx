@@ -3,11 +3,12 @@ import styled from "styled-components";
 export const NavbarBox = styled.div`
     display: flex;
     align-itemns: center;
-    justify-content: space-between;
+    justify-content: flex-end;
     padding: 2%;
     padding-right: 5%;
-    background: #2677ca;
-    margin-bottom: 2%;
+    position: absolute;
+    right: 0;
+    left: 0;
 
     button {
         border: none;
@@ -20,11 +21,11 @@ export const NavbarBox = styled.div`
         justify-content: center;
         font-family: 'Roboto', sans-serif;
         font-weight: 400;
-        font-size: 17px;
+        font-size: 20px;
         color: #FFFFFF;
 
         svg {
-            font-size: 20px;
+            font-size: 25px;
         }
 
         &:hover {
