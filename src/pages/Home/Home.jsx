@@ -1,5 +1,6 @@
 // Components
 import { SearchForm } from '../../components/SearchForm/SearchForm';
+import { Popular } from '../../components/Popular/Popular';
 // Image
 import ImgBg from '../../assets/ImgBg.png'
 // Icons
@@ -15,7 +16,11 @@ export const Home = () => {
                 <h2>Find Yours <SlPlane /></h2>
             </ImgBackground>
 
-            <SearchForm />
+            <div style={{textAlign: 'center'}}>
+                <SearchForm />
+            </div>
+
+            <Popular />
         </HomeBox>
     )
 }
