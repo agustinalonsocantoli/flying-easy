@@ -7,6 +7,7 @@ import ImgBg from '../../assets/ImgBg.png'
 import { SlPlane } from 'react-icons/sl'
 // Styled
 import { HomeBox, ImgBackground } from './HomeStyled';
+import { Reviews } from '../../components/Reviews/Reviews';
 
 export const Home = () => {
     return(
@@ -21,6 +22,8 @@ export const Home = () => {
             </div>
 
             <Popular />
+
+            <Reviews />
         </HomeBox>
     )
 }
