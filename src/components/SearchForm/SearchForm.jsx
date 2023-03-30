@@ -11,7 +11,14 @@ const { RangePicker } = DatePicker;
 
 
 export const SearchForm = () => {
-    const [ dates, setDates ] = useState([])
+    const [ search, setSearch ] = useState({
+        from: '',
+        to: '',
+        class: '',
+        direct: false,
+        flighType: '',
+        date: [],
+    })
 
     const formatDate = (data) => {
         let newDate = []
@@ -20,7 +27,7 @@ export const SearchForm = () => {
             newDate.push(`${item.$D}-${item.$M + 1}-${item.$y}`)
         ))
 
-        setDates(newDate)
+        setSearch(prev => ({...prev, date: newDate}))
     }
 
     const styledDate = {
@@ -31,19 +38,54 @@ export const SearchForm = () => {
         outline: 'none',
     }
 
+    const handleInput = (e) => {
+        const { name, value, type, checked } = e.target;
+        let newValue;
+
+        if(type === "checkbox") {
+            let checkValue = false;
+
+            if(checked) {
+                checkValue = true;
+            } else {
+                checkValue = false;
+            }
+
+            newValue = checkValue;
+        } else {
+            newValue = value;
+        }
+        
+        setSearch(prev => ({...prev, [name]: newValue}));
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        console.log(search);
+    }
+
+    const handleClick = () => {
+        setSearch(prev => ({
+            ...prev, 
+            from: search.to,
+            to: search.from
+        }))
+    }
+
     return(
         <SearchFormBox>
-            <form>
+            <form onSubmit={handleSubmit}>
                 <FirstBox>
                     <div>
-                        <input type="radio" name='fligh_type'/>
+                        <input type="radio" name='flighType' value='return' onChange={handleInput}/>
                         <label>Return</label>
-                        <input type="radio" name='fligh_type'/>
+                        <input type="radio" name='flighType' value='oneWay' onChange={handleInput}/>
                         <label>One way</label>
                     </div>
 
                     <div>
-                        <select name="class">
+                        <select name="class" onChange={handleInput}>
                             <option value="economy">Economy</option>
                             <option value="business">Business</option>
                             <option value="first">First</option>
@@ -51,15 +93,15 @@ export const SearchForm = () => {
                     </div>
 
                     <div>
-                        <input type="checkbox" name='direct'/>
+                        <input type="checkbox" name='direct' onChange={handleInput}/>
                         <label>Direct flights only</label>
                     </div>
                 </FirstBox>
 
                 <SecondBox>
-                    <input type="text" placeholder='Where from?' />
-                    <Icon><TbArrowsExchange2 /></Icon>
-                    <input type="text" placeholder='Where to?' />
+                    <input type="text" placeholder='Where from?' name='from' value={search.from} onChange={handleInput}/>
+                    <Icon onClick={handleClick}><TbArrowsExchange2 /></Icon>
+                    <input type="text" placeholder='Where to?' name='to' value={search.to} onChange={handleInput}/>
 
 
                     <RangePicker
@@ -71,7 +113,7 @@ export const SearchForm = () => {
 
                 </SecondBox>
 
-                <Button>Search Flights</Button>
+                <Button type='submit'>Search Flights</Button>
             </form>
         </SearchFormBox>
     )

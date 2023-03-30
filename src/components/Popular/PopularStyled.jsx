@@ -14,6 +14,19 @@ export const PopularBox = styled.div`
         width: 70%;
         margin: 0 auto 20px auto;
     }
+
+    button {
+        background: #2677ca;
+        border-radius: 5px;
+        padding: 5px;
+        width: 40px;
+        height: 30px;
+        margin: 0 -60px;
+
+        svg {
+            fill: #FFFFFF;
+        }
+    }
 `;
 
 export const ImgBox = styled.div`
