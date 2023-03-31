@@ -14,7 +14,9 @@ import city from '../../assets/home/city.jpg'
 // Styled
 import { HomeBox, ImgBackground, Collage, Beach, Mountain, Snow, City } from './HomeStyled';
 
+
 export const Home = () => {
+
     return(
         <HomeBox>
             <ImgBackground image={ImgBg}>
